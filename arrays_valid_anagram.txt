@@ -1,0 +1,81 @@
+2. Valid Anagram: 
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+ 
+
+Example 1:
+
+Input: s = "anagram", t = "nagaram"
+Output: true
+Example 2:
+
+Input: s = "rat", t = "car"
+Output: false
+ 
+
+Constraints:
+
+1 <= s.length, t.length <= 5 * 104
+s and t consist of lowercase English letters.
+ 
+
+Follow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
+
+Solution : 
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        Map<Character, Integer> count1= new HashMap<Character, Integer>();
+        Map<Character, Integer> count2= new HashMap<Character, Integer>();
+        
+        char s1[] = s.toCharArray();
+        char t1[] = t.toCharArray();
+
+        for(int i=0; i < s.length(); i++){
+            //add the count in the first hashmap
+            if(count1.get(s1[i]) == null) {
+                count1.put(s1[i],1);
+            } else {
+                int c = count1.get(s1[i]);
+                count1.put(s1[i],++c);
+            }
+        }
+
+        for(int j=0; j < t.length(); j++) {
+            if(count2.get(t1[j]) == null) {
+                count2.put(t1[j], 1);       
+            } else {
+                int co = count2.get(t1[j]);
+                count2.put(t1[j], ++co);       
+            }
+        }
+        
+        if(count1.equals(count2)) {
+            return true;
+        }
+        return false;
+    }
+}
+
+// class Solution {
+//     public boolean isAnagram(String s, String t) {
+//         if (s.length() != t.length()) {
+//             return false;
+//         }
+//         int count[] = new int[26];
+//         for(int i=0; i <s.length(); i++) {
+//             count[s.charAt(i) - 'a']++;    , count[0] = 1, count[7]=0, count[0]=1
+//             count[t.charAt(i) - 'a']--;      count[7] = -1, count[0]=0
+//         }
+//         for(int no:count) {
+//             if (no!=0) return false;
+//         }
+//         return true;
+//     }
+// }
